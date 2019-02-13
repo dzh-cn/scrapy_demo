@@ -13,17 +13,10 @@ class DoubanMoviePipeline(object):
     def __init__(self):
         self.connect = pymysql.connect("localhost", "test", "test", "test")
         self.cursor = self.connect.cursor()
-        self.sql = """insert into douban_movie(name,name_desc,stars,rating,rater_count) value (%s,%s,%s,%s,%s) on duplicate key update name=(name)"""
-
-
-    # def process_item(self, item, spider):
-    #     for i in range(0, len(item['name_desc'])):
-    #         self.cursor.execute(self.sql, (item['name'][i*2], item['name_desc'], item['stars'], item['rating'], item['rater_count']))
-    #     self.connect.commit()
-    #     return item
+        self.sql = """insert into movie_top_250(url,number,name,time,director,scenario,starts,type,district,language,time_desc) value (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) on duplicate key update name=(name)"""
 
 
     def process_item(self, item, spider):
-        # self.cursor.execute(self.sql, (item['name'], item['name_desc'], item['stars'], item['rating'], item['rater_count']))
-        # self.connect.commit()
+        self.cursor.execute(self.sql, (item['url'], item['number'], item['name'], item['time'], item['director'], item['scenario'], str(item['starts']), str(item['type']), item['district'], item['language'], str(item['time_desc'])))
+        self.connect.commit()
         return item

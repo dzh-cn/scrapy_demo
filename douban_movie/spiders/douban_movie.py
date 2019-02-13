@@ -45,7 +45,6 @@ class DoubanMovieSpider(scrapy.Spider):
     url = 'https://movie.douban.com/top250?start='
     offset = 0
     start_urls = [url + str(offset)]
-    # start_urls = ['https://movie.douban.com/subject/1292052/']
     start_css = 'ol.grid_view div.item div.info '
     start_xpath = "//div[@id='wrapper']/div[@id='content']"
 
